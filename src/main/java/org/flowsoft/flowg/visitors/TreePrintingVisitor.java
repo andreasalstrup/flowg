@@ -126,6 +126,10 @@ public class TreePrintingVisitor implements IVisitor<String, NoException> {
     public String Visit(AssignmentNode assignmentNode) throws NoException {
         return PrintNode(assignmentNode, assignmentNode.GetLeftChild(), assignmentNode.GetRightChild());
     }
+    @Override
+    public String Visit(CompoundAssignmentNode compoundAssignmentNode) throws NoException{
+        return PrintNode(compoundAssignmentNode, compoundAssignmentNode.GetFirstNode(), compoundAssignmentNode.GetSecondNode(), compoundAssignmentNode.GetThirdNode());
+    }
     
     @Override
     public String Visit(ForToNode forToNode) throws NoException {

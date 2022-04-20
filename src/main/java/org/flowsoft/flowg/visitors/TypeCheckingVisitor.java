@@ -242,6 +242,16 @@ public class TypeCheckingVisitor implements IVisitor<Type, TypeException>{
 
         return null;
     }
+    @Override
+    public Type Visit(CompoundAssignmentNode compoundAssignmentNode) throws TypeException{
+        var identifier = compoundAssignmentNode.GetFirstNode().GetValue();
+        var identifierType = _symbolTable.LookupVariable(identifier).GetType();
+        var expressionType = compoundAssignmentNode.GetThirdNode().Accept(this);
+
+        if (identifierType != expressionType) throw new TypeException();
+
+        return null;
+    }
 
     @Override
     public Type Visit(ForToNode forToNode) throws TypeException {

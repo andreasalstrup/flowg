@@ -304,6 +304,20 @@ public class CodeGeneratingVisitor implements IVisitor<ExpressionValue, Exceptio
 
         return null;
     }
+    @Override
+    public ExpressionValue Visit(CompoundAssignmentNode compoundAssignmentNode) throws Exception {
+        var identifier = compoundAssignmentNode.GetFirstNode().GetValue();
+        var identifierValue = _symbolTable.LookupVariable(identifier);
+        var value = compoundAssignmentNode.GetThirdNode().Accept(this);
+        var operator = compoundAssignmentNode.GetSecondNode().Accept(this);
+        switch (operator.toString()){
+            case "+": _symbolTable.SetValue(identifier, identifierValue);
+                break;
+            case "-":
+        }
+
+        return null;
+    }
     
     @Override
     public ExpressionValue Visit(ForToNode forToNode) throws Exception {
