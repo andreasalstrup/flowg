@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 Type = "number"|"bool"|"point"|"void"
 Identifier = [a-zA-Z][a-zA-Z0-9]*
 Number = [0-9]+(\.[0-9]+)?
-Whitespace = [\ \n]
+Whitespace = [\ \r\n]
 NewLine = \n
 Comment = \/\/[^\n]*
 Anything = .
@@ -65,6 +65,10 @@ Anything = .
 "]" { return symbol(sym.R_SQUARE_BRACKET); }
 
 "=" { return symbol(sym.ASSIGNMENT); }
+"+=" { return symbol(sym.CPLUS); }
+"+-" { return symbol(sym.CMINUS); }
+"*=" { return symbol(sym.CTIMES); }
+"/=" { return symbol(sym.CDIVIDE); }
 ";" { return symbol(sym.SEMICOLON); }
 "," { return symbol(sym.COMMA); }
 "+" { return symbol(sym.PLUS); }

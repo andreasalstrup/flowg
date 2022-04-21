@@ -5,9 +5,7 @@ import org.flowsoft.flowg.TypeException;
 import org.flowsoft.flowg.nodes.*;
 
 import java.util.ArrayList;
-import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class TypeCheckingVisitor implements IVisitor<Type, TypeException>{
 
@@ -243,10 +241,40 @@ public class TypeCheckingVisitor implements IVisitor<Type, TypeException>{
         return null;
     }
     @Override
-    public Type Visit(CompoundAssignmentNode compoundAssignmentNode) throws TypeException{
-        var identifier = compoundAssignmentNode.GetFirstNode().GetValue();
+    public Type Visit(CompoundPlusAssignmentNode compoundAssignmentNode) throws TypeException{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
         var identifierType = _symbolTable.LookupVariable(identifier).GetType();
-        var expressionType = compoundAssignmentNode.GetThirdNode().Accept(this);
+        var expressionType = compoundAssignmentNode.GetRightChild().Accept(this);
+
+        if (identifierType != expressionType) throw new TypeException();
+
+        return null;
+    }
+    @Override
+    public Type Visit(CompoundMinusAssignmentNode compoundAssignmentNode) throws TypeException{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
+        var identifierType = _symbolTable.LookupVariable(identifier).GetType();
+        var expressionType = compoundAssignmentNode.GetRightChild().Accept(this);
+
+        if (identifierType != expressionType) throw new TypeException();
+
+        return null;
+    }
+    @Override
+    public Type Visit(CompoundTimesAssignmentNode compoundAssignmentNode) throws TypeException{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
+        var identifierType = _symbolTable.LookupVariable(identifier).GetType();
+        var expressionType = compoundAssignmentNode.GetRightChild().Accept(this);
+
+        if (identifierType != expressionType) throw new TypeException();
+
+        return null;
+    }
+    @Override
+    public Type Visit(CompoundDivideAssignmentNode compoundAssignmentNode) throws TypeException{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
+        var identifierType = _symbolTable.LookupVariable(identifier).GetType();
+        var expressionType = compoundAssignmentNode.GetRightChild().Accept(this);
 
         if (identifierType != expressionType) throw new TypeException();
 

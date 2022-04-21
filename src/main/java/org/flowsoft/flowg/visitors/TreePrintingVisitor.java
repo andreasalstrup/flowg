@@ -126,11 +126,24 @@ public class TreePrintingVisitor implements IVisitor<String, NoException> {
     public String Visit(AssignmentNode assignmentNode) throws NoException {
         return PrintNode(assignmentNode, assignmentNode.GetLeftChild(), assignmentNode.GetRightChild());
     }
+
     @Override
-    public String Visit(CompoundAssignmentNode compoundAssignmentNode) throws NoException{
-        return PrintNode(compoundAssignmentNode, compoundAssignmentNode.GetFirstNode(), compoundAssignmentNode.GetSecondNode(), compoundAssignmentNode.GetThirdNode());
+    public String Visit(CompoundPlusAssignmentNode compoundAssignmentNode) throws NoException{
+        return PrintNode(compoundAssignmentNode, compoundAssignmentNode.GetLeftChild(), compoundAssignmentNode.GetRightChild());
     }
-    
+    @Override
+    public String Visit(CompoundMinusAssignmentNode compoundAssignmentNode) throws NoException{
+        return PrintNode(compoundAssignmentNode, compoundAssignmentNode.GetLeftChild(), compoundAssignmentNode.GetRightChild());
+    }
+    @Override
+    public String Visit(CompoundTimesAssignmentNode compoundAssignmentNode) throws NoException{
+        return PrintNode(compoundAssignmentNode, compoundAssignmentNode.GetLeftChild(), compoundAssignmentNode.GetRightChild());
+    }
+    @Override
+    public String Visit(CompoundDivideAssignmentNode compoundAssignmentNode) throws NoException{
+        return PrintNode(compoundAssignmentNode, compoundAssignmentNode.GetLeftChild(), compoundAssignmentNode.GetRightChild());
+    }
+
     @Override
     public String Visit(ForToNode forToNode) throws NoException {
         return PrintNode(forToNode, forToNode.GetFirstNode(), forToNode.GetSecondNode(), forToNode.GetThirdNode());

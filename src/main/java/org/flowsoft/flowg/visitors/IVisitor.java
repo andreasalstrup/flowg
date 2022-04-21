@@ -1,5 +1,7 @@
 package org.flowsoft.flowg.visitors;
 
+import org.flowsoft.flowg.Type;
+import org.flowsoft.flowg.TypeException;
 import org.flowsoft.flowg.nodes.*;
 
 public interface IVisitor<T, TException extends Exception> {
@@ -23,6 +25,10 @@ public interface IVisitor<T, TException extends Exception> {
     T Visit(FunctionCallNode functionCallNode) throws TException;
     T Visit(ReturnNode returnNode) throws TException;
     T Visit(AssignmentNode assignmentNode) throws TException;
-    T Visit(CompoundAssignmentNode compoundAssignmentNode) throws TException;
+    //T Visit(CompoundAssignmentNode compoundAssignmentNode) throws TException;
+    T Visit(CompoundPlusAssignmentNode compoundPlusAssignmentNode) throws  TException;
+    T Visit(CompoundMinusAssignmentNode compoundMinusAssignmentNode) throws TException;
+    T Visit(CompoundTimesAssignmentNode compoundTimesAssignmentNode) throws TException;
+    T Visit(CompoundDivideAssignmentNode compoundDivideAssignmentNode) throws TException;
     T Visit(ForToNode forToNode) throws TException;
 }

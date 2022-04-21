@@ -148,8 +148,20 @@ public class PrettyPrintingVisitor implements IVisitor<String, NoException> {
         return assignmentNode.GetLeftChild().Accept(this) + " = " + assignmentNode.GetRightChild().Accept(this);
     }
     @Override
-    public String Visit(CompoundAssignmentNode compoundAssignmentNode) throws NoException{
-        return compoundAssignmentNode.GetFirstNode().Accept(this) + compoundAssignmentNode.GetSecondNode().Accept(this) + "=" + compoundAssignmentNode.GetThirdNode().Accept(this);
+    public String Visit(CompoundPlusAssignmentNode compoundAssignmentNode) throws NoException{
+        return compoundAssignmentNode.GetLeftChild().Accept(this) + " += " + compoundAssignmentNode.GetRightChild().Accept(this);
+    }
+    @Override
+    public String Visit(CompoundMinusAssignmentNode compoundAssignmentNode) throws NoException{
+        return compoundAssignmentNode.GetLeftChild().Accept(this) + " -= " + compoundAssignmentNode.GetRightChild().Accept(this);
+    }
+    @Override
+    public String Visit(CompoundTimesAssignmentNode compoundAssignmentNode) throws NoException{
+        return compoundAssignmentNode.GetLeftChild().Accept(this) + " *= " + compoundAssignmentNode.GetRightChild().Accept(this);
+    }
+    @Override
+    public String Visit(CompoundDivideAssignmentNode compoundAssignmentNode) throws NoException{
+        return compoundAssignmentNode.GetLeftChild().Accept(this) + " /= " + compoundAssignmentNode.GetRightChild().Accept(this);
     }
 
     @Override

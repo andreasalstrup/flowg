@@ -304,17 +304,40 @@ public class CodeGeneratingVisitor implements IVisitor<ExpressionValue, Exceptio
 
         return null;
     }
+
     @Override
-    public ExpressionValue Visit(CompoundAssignmentNode compoundAssignmentNode) throws Exception {
-        var identifier = compoundAssignmentNode.GetFirstNode().GetValue();
-        var identifierValue = _symbolTable.LookupVariable(identifier);
-        var value = compoundAssignmentNode.GetThirdNode().Accept(this);
-        var operator = compoundAssignmentNode.GetSecondNode().Accept(this);
-        switch (operator.toString()){
-            case "+": _symbolTable.SetValue(identifier, identifierValue);
-                break;
-            case "-":
-        }
+    public ExpressionValue Visit(CompoundPlusAssignmentNode compoundAssignmentNode) throws Exception{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
+        var value = compoundAssignmentNode.GetRightChild().Accept(this);
+        ExpressionValue identifierValue = new ExpressionValue(value.GetNumber().add(_symbolTable.LookupVariable(identifier).GetNumber()));
+        _symbolTable.SetValue(identifier, identifierValue);
+
+        return null;
+    }
+    @Override
+    public ExpressionValue Visit(CompoundMinusAssignmentNode compoundAssignmentNode) throws Exception{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
+        var value = compoundAssignmentNode.GetRightChild().Accept(this);
+        ExpressionValue identifierValue = new ExpressionValue(value.GetNumber().subtract(_symbolTable.LookupVariable(identifier).GetNumber()));
+        _symbolTable.SetValue(identifier, identifierValue);
+
+        return null;
+    }
+    @Override
+    public ExpressionValue Visit(CompoundTimesAssignmentNode compoundAssignmentNode) throws Exception{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
+        var value = compoundAssignmentNode.GetRightChild().Accept(this);
+        ExpressionValue identifierValue = new ExpressionValue (value.GetNumber().multiply(_symbolTable.LookupVariable(identifier).GetNumber()));
+        _symbolTable.SetValue(identifier, identifierValue);
+
+        return null;
+    }
+    @Override
+    public ExpressionValue Visit(CompoundDivideAssignmentNode compoundAssignmentNode) throws Exception{
+        var identifier = compoundAssignmentNode.GetLeftChild().GetValue();
+        var value = compoundAssignmentNode.GetRightChild().Accept(this);
+        ExpressionValue identifierValue = new ExpressionValue (value.GetNumber().divide(_symbolTable.LookupVariable(identifier).GetNumber()));
+        _symbolTable.SetValue(identifier, identifierValue);
 
         return null;
     }

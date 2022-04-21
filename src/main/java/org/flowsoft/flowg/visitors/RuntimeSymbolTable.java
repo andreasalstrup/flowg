@@ -2,6 +2,7 @@ package org.flowsoft.flowg.visitors;
 
 import org.flowsoft.flowg.TypeException;
 
+import java.beans.Expression;
 import java.util.HashMap;
 import java.util.Map;
 
